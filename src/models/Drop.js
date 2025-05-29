@@ -2,14 +2,25 @@ import mongoose from "mongoose";
 
 const DropSchema = new mongoose.Schema(
   {
-    name: String,
+    name: { type: String, required: true },
     description: String,
-    dropDate: Date,
-    endDate: Date,
+    products: [
+      {
+        type: mongoose.Schema.Type.ObjectId,
+        ref: "Product",
+      },
+    ],
+    dropDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
     status: {
       type: String,
       enum: ["upcoming", "live", "ended"],
       default: "upcoming",
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
   { timestamps: true }
