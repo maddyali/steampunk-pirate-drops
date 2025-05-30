@@ -6,7 +6,7 @@ const DropSchema = new mongoose.Schema(
     description: String,
     products: [
       {
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
     ],
