@@ -52,7 +52,6 @@ export default function Drops() {
   const handleProductChange = (e) => {
     const selectedArray = Array.from(e.currentTarget.selectedOptions);
     const selectedValues = selectedArray.map((option) => option.value);
-    console.log(selectedValues);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -77,7 +76,14 @@ export default function Drops() {
       const result = await res.json();
       if (result.success) {
         setDrops([result.data, ...drops]);
-        setFormData({ name: "", description: "", dropDate: "", endDate: "" });
+        setFormData({
+          name: "",
+          description: "",
+          dropDate: "",
+          endDate: "",
+          products: [],
+          createdBy: "6838932bc84dc1f6567a0567" /* hardcoded for now */,
+        });
         setShowForm((prevState) => !prevState);
         alert("Drop created successfully!");
       }
@@ -93,7 +99,7 @@ export default function Drops() {
     return (
       <div key={drop._id} className="mt-20">
         <h3>{drop.name}</h3>
-        <p>{drop.description?.length || "Add description"}</p>
+        <p>{drop.description || "Add description"}</p>
         <p>
           <strong>Status: </strong>
           {drop.status}
@@ -148,7 +154,31 @@ export default function Drops() {
           </div>
 
           <div>
-            <label htmlFor="products">Select Products!!!:</label>
+            <label htmlFor="dropDate">Drop Start Date:</label>
+            <input
+              id="dropDate"
+              type="datetime-local"
+              name="dropDate"
+              value={formData.dropDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="endDate">Drop End Date:</label>
+            <input
+              id="endDate"
+              type="datetime-local"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="products">Select Products:</label>
 
             <select
               id="products"
