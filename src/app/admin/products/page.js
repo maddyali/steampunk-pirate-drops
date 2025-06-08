@@ -16,13 +16,14 @@ export default function Products() {
   const fetchProducts = async () => {
     const url = "http://localhost:3000/api/products";
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((result) => {
-        setProducts(result.data);
-        setLoading(false);
-      })
-      .catch((error) => console.error(error));
+    try {
+      const res = await fetch(url);
+      const result = await res.json();
+      setProducts(result.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
